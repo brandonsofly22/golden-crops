@@ -1,0 +1,11 @@
+
+{
+  "type": "minecraft:smelting",
+  "category": "food",
+  "ingredient": "golden-crops:golden_potato",
+  "result": {
+    "id": "golden-crops:golden_baked_potato"
+  },
+  "experience": 0.35,
+  "cookingtime": 200
+}
