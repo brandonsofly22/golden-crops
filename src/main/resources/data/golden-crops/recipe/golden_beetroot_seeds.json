@@ -1,0 +1,19 @@
+
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "GBG",
+    "BSB",
+    "GBG"
+  ],
+  "key": {
+    "G": "minecraft:gold_ingot",
+    "B": "minecraft:beetroot",
+    "S": "minecraft:beetroot_seeds"
+  },
+  "result": {
+    "id": "golden-crops:golden_beetroot_seeds",
+    "count": 1
+  }
+}
