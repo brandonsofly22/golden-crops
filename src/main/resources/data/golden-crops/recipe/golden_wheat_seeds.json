@@ -1,0 +1,19 @@
+
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "GWG",
+    "WSW",
+    "GWG"
+  ],
+  "key": {
+    "G": "minecraft:gold_ingot",
+    "W": "minecraft:wheat",
+    "S": "minecraft:wheat_seeds"
+  },
+  "result": {
+    "id": "golden-crops:golden_wheat_seeds",
+    "count": 1
+  }
+}
