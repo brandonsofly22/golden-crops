@@ -1,0 +1,20 @@
+
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "GBG",
+    "RSR",
+    "GBG"
+  ],
+  "key": {
+    "G": "minecraft:gold_ingot",
+    "B": "minecraft:brown_mushroom",
+    "R": "minecraft:red_mushroom",
+    "S": "minecraft:mushroom_stew"
+  },
+  "result": {
+    "id": "golden-crops:golden_mushroom_spores",
+    "count": 1
+  }
+}
