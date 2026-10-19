@@ -1,0 +1,18 @@
+
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "food",
+  "ingredients": [
+    "golden-crops:golden_beetroot",
+    "golden-crops:golden_beetroot",
+    "golden-crops:golden_beetroot",
+    "golden-crops:golden_beetroot",
+    "golden-crops:golden_beetroot",
+    "golden-crops:golden_beetroot",
+    "minecraft:bowl"
+  ],
+  "result": {
+    "id": "golden-crops:golden_beetroot_soup",
+    "count": 1
+  }
+}
