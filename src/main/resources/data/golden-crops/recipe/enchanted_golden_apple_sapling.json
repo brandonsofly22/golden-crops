@@ -1,0 +1,25 @@
+
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "NGD",
+    "SOT",
+    "IME"
+  ],
+  "key": {
+    "N": "minecraft:nether_star",
+    "G": "minecraft:ghast_tear",
+    "D": "minecraft:diamond_block",
+    "S": "minecraft:shield",
+    "O": "golden-crops:golden_apple_sapling",
+    "T": "minecraft:totem_of_undying",
+    "I": "minecraft:netherite_ingot",
+    "M": "minecraft:magma_cream",
+    "E": "minecraft:enchanted_golden_apple"
+  },
+  "result": {
+    "id": "golden-crops:enchanted_golden_apple_sapling",
+    "count": 1
+  }
+}
