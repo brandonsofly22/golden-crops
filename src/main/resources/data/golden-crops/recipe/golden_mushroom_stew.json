@@ -1,0 +1,14 @@
+
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "food",
+  "ingredients": [
+    "golden-crops:golden_mushroom",
+    "golden-crops:golden_mushroom",
+    "minecraft:bowl"
+  ],
+  "result": {
+    "id": "golden-crops:golden_mushroom_stew",
+    "count": 1
+  }
+}
