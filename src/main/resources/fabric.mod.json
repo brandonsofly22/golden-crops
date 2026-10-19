@@ -1,0 +1,39 @@
+
+{
+	"schemaVersion": 1,
+	"id": "golden-crops",
+	"version": "${version}",
+	"name": "Golden Crops",
+	"description": "Golden Crops expands Minecraft's farming experience with golden agriculture, introducing farmable golden crops, powerful foods, golden apple trees, and specialized farming tools to enhance your harvests.",
+	"authors": [
+		"Brandon"
+	],
+	"contact": {},
+	"license": "Apache-2.0",
+	"icon": "assets/golden-crops/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.brandon.goldencrops.GoldenCrops"
+		],
+		"client": [
+			"com.brandon.goldencrops.client.GoldenCropsClient"
+		],
+		"fabric-datagen": [
+			"com.brandon.goldencrops.client.GoldenCropsDataGenerator"
+		]
+	},
+	"mixins": [
+		"golden-crops.mixins.json",
+		{
+			"config": "golden-crops.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"minecraft": "~26.2",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}

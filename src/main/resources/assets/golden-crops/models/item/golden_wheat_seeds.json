@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "golden-crops:item/golden_wheat_seeds"
+  }
+}

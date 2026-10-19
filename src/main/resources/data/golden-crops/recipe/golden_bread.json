@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "WWW"
+  ],
+  "key": {
+    "W": "golden-crops:golden_wheat"
+  },
+  "result": {
+    "id": "golden-crops:golden_bread",
+    "count": 1
+  }
+}
