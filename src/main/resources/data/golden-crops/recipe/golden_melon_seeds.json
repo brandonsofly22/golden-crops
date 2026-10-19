@@ -1,0 +1,19 @@
+
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "GMG",
+    "MSM",
+    "GMG"
+  ],
+  "key": {
+    "G": "minecraft:gold_ingot",
+    "M": "minecraft:glistering_melon_slice",
+    "S": "minecraft:melon_seeds"
+  },
+  "result": {
+    "id": "golden-crops:golden_melon_seeds",
+    "count": 1
+  }
+}
