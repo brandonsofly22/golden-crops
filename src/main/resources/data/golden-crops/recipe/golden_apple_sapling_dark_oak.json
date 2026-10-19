@@ -1,0 +1,19 @@
+
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "GAG",
+    "ASA",
+    "GAG"
+  ],
+  "key": {
+    "G": "minecraft:gold_block",
+    "A": "minecraft:golden_apple",
+    "S": "minecraft:dark_oak_sapling"
+  },
+  "result": {
+    "id": "golden-crops:golden_apple_sapling",
+    "count": 1
+  }
+}
