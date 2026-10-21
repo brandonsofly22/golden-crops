@@ -120,22 +120,21 @@ For beetroot, the intended intermediate rates are **0.60% and 0.70%**, not exact
 - Target chance at Fortune III: **1/200**. Fortune 0, I and II rates and interaction with Silk Touch remain **OPEN**; determine whether harvested huge-mushroom blocks are included (not yet approved).
 - Spores recipe: **4 gold ingots in corners, red mushrooms left/right, brown mushrooms top/bottom, mushroom stew center**.
 - Golden Mushroom Stew recipe: shapeless **2 Golden Mushrooms + 1 Bowl**, not stackable.
-- **Revised nutrition target:** **10 hunger points** (recovered intent, replaces the earlier inferred 9); planned base food saturation remains **10.8**, pending balance confirmation. Vanilla Mushroom Stew restores 6 hunger and 7.2 saturation.
+- **LOCKED nutrition target:** **10 hunger points (5 drumsticks)** from the Golden Mushroom Stew, superseding the earlier inferred 9. Planned base food saturation remains **10.8**. Vanilla Mushroom Stew restores 6 hunger and 7.2 saturation. Ensure Saturation effect does not accidentally push actual hunger restoration beyond the intended target.
 - Status effects: **Jump Boost for 45 seconds** and **Saturation for 0.35 seconds**, modeled on the Saturation variant of vanilla *Suspicious Stew*, not ordinary Mushroom Stew.
 - **Important implementation/test note:** the Saturation status effect itself replenishes hunger and saturation, so “10 hunger” may be either the base item nutrition or a target total; currently record **10 base hunger as the working specification** and test the total effect before calling the balance final.
-- **OPEN:** exact Saturation amplifier, whether more saturation comes from base nutrition or the status effect (or both), Golden Mushroom farming/yields, and exact drop rates below Fortune III.
+- **Saturation I** is the implementation starting point (amplifier not important to the user); preserve **0.35 seconds / 7 ticks** and tune behavior if needed to deliver the intended 10 hunger points. **OPEN:** precise combined saturation result, Golden Mushroom farming/yields, and exact drop rates below Fortune III.
 
 
-### Golden Sweet Berries — PLANNED; proposed custom growth stages
+### Golden Sweet Berries — PLANNED; four-stage growth LOCKED
 
 - Planted directly (no separate seeds); the 20% no-seed mechanic does not apply.
 - Recipe JSON: 4 gold ingots corners, 5 sweet berries sides and center.
 - Golden Sweet Berries food: **3 hunger, 1.8 saturation**, **Fire Resistance for 15 seconds**.
 - Rare Golden Sweet Berries discovery: **1/50 Fortune III** from the **fully mature vanilla Sweet Berry Bush** (vanilla age 3).
-- **Proposed Golden Berry harvest stages:** Golden bush age **0–2: 0 berries**; age **3: 2–3 berries**; age **4: 3–4 berries**. **Fortune improves quantities and can raise the maximum**, but its per-level bonus or maximum is not yet specified.
-- **Technical difference:** vanilla sweet berry bushes have **ages 0–3**, with yields at ages 2 and 3. This five-stage Golden Berry plan requires **custom age 0–4 behavior** rather than assuming vanilla age 4 exists.
-- **OPEN:** finalize whether the Golden Berry bush should truly have five ages rather than vanilla's four, Fortune yield tables, Fortune 0–II rare discovery rates, and exact growth/harvest handling. The previously discussed alternate recipe center item remains unconfirmed.
-
+- **LOCKED Golden Sweet Berry harvest stages (vanilla-style ages 0–3):** age **0: 0 berries**; age **1: 0 berries**; age **2: 2–3 berries**; age **3: 3–4 berries**. This supersedes the previously discussed age 0–4 proposal.
+- **Fortune increases harvest yields and may raise the maximum**; exact per-level bonuses remain **OPEN**.
+- **OPEN:** Fortune 0–II rare discovery rates and exact growth/harvest implementation.
 
 ### Golden Carrot — PLANNED; planting and yields recovered
 
@@ -349,7 +348,7 @@ Golden Bread recipe already existed and was tested. Recipes for unregistered ite
 - **Golden Carrot:** vanilla already has a Golden Carrot food; do not accidentally overwrite vanilla food properties without a conscious design decision.
 - **Golden Mushroom:** “only mature vanilla crops” cannot literally apply to mushrooms; **breaking a vanilla red or brown mushroom** is the recovered discovery trigger. Huge-mushroom blocks remain unapproved.
 - **Golden Mushroom Stew:** 10 hunger was explicitly recovered later, superseding the earlier inferred 9; Saturation effect 0.35 seconds follows *Suspicious Stew*, not vanilla ordinary Mushroom Stew.
-- **Golden Sweet Berries:** vanilla bush has age 0–3; the newly proposed Golden bush age **0–4** needs custom handling. Rare discovery remains from the mature vanilla bush, not each berry item.
+- **Golden Sweet Berries:** user clarified four stages age **0–3**, with **0, 0, 2–3, 3–4** Golden Berries respectively; this supersedes the accidental five-stage age 0–4 proposal. Rare discovery remains from the mature vanilla bush, not each berry item.
 - **Golden Composter:** exactly eight guaranteed golden-item contributions and one Golden Bone Meal; the chance-based/3–4-input proposals are obsolete.
 - **Golden Bone Meal:** 1.75× crop next-harvest yield with probabilistic rounding; separate from Golden Fertilizer/Grow Light growth bonuses.
 - **Golden Fertilizer:** the user's latest correction changed all three fertilizer-output categories **from 3 to 4**, while 1 and 2 stay unchanged.
