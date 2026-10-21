@@ -45,7 +45,7 @@
 | Golden Beetroot Seeds | 1/125 | Mature vanilla beetroot crop |
 | Golden Sweet Berries | 1/50 | Mature vanilla sweet berry bush |
 
-Other previously proposed discovery rates, including Golden Apple Saplings and Golden Carrot, are separate systems. Mushroom source/eligibility needs explicit design before implementation; do not invent a maturity state.
+Golden Apple Sapling recovery uses the separate tree system. Golden Carrots use **vanilla crafting**, rather than a rare seed discovery drop. Golden Mushroom Spores use a special **red/brown mushroom break** trigger (mushrooms have no age or maturity property); exact Fortune 0–II rates remain OPEN.
 
 ### Fortune level discovery odds — LOCKED where explicitly approved
 
@@ -112,27 +112,47 @@ For beetroot, the intended intermediate rates are **0.60% and 0.70%**, not exact
 - Cooking Golden Potato into Golden Baked Potato: smelting (200 ticks), smoking (100), campfire (600), **0.35 XP** where applicable; three JSON recipe files committed.
 - **OPEN:** exact Fortune bonus distribution and in-game healing test for Regeneration II.
 
-### Golden Mushroom and Golden Mushroom Stew — PLANNED
 
-- One combined **Golden Mushroom Spores** item for red/brown mushrooms, not separate species.
-- Spores recipe: 4 gold ingots corners, red mushrooms left/right, brown mushrooms top/bottom, mushroom stew center.
-- Golden Mushroom Stew: shapeless **2 Golden Mushrooms + 1 Bowl**; **Jump Boost for 45 seconds plus short Saturation effect**.
-- Under general food multiplier, mushroom stew target **9 hunger and 10.8 saturation** (vanilla 6/7.2), pending final effect and implementation check.
-- Fortune III rare spores target 1/200; **OPEN** eligible vanilla mushroom discovery trigger, Fortune 0–II odds, harvest yields, precise Saturation effect level/duration.
+### Golden Mushroom and Golden Mushroom Stew — PLANNED; discovery trigger recovered
 
-### Golden Sweet Berries — PLANNED
+- One combined **Golden Mushroom Spores** item for both red and brown mushrooms, rather than separate spore types.
+- **Natural discovery:** breaking a **vanilla red or brown mushroom** has an independent chance to drop Golden Mushroom Spores. Neither mushroom type has crop maturity stages; do not require a fictional “mature mushroom.”
+- Target chance at Fortune III: **1/200**. Fortune 0, I and II rates and interaction with Silk Touch remain **OPEN**; determine whether harvested huge-mushroom blocks are included (not yet approved).
+- Spores recipe: **4 gold ingots in corners, red mushrooms left/right, brown mushrooms top/bottom, mushroom stew center**.
+- Golden Mushroom Stew recipe: shapeless **2 Golden Mushrooms + 1 Bowl**, not stackable.
+- **Revised nutrition target:** **10 hunger points** (recovered intent, replaces the earlier inferred 9); planned base food saturation remains **10.8**, pending balance confirmation. Vanilla Mushroom Stew restores 6 hunger and 7.2 saturation.
+- Status effects: **Jump Boost for 45 seconds** and **Saturation for 0.35 seconds**, modeled on the Saturation variant of vanilla *Suspicious Stew*, not ordinary Mushroom Stew.
+- **Important implementation/test note:** the Saturation status effect itself replenishes hunger and saturation, so “10 hunger” may be either the base item nutrition or a target total; currently record **10 base hunger as the working specification** and test the total effect before calling the balance final.
+- **OPEN:** exact Saturation amplifier, whether more saturation comes from base nutrition or the status effect (or both), Golden Mushroom farming/yields, and exact drop rates below Fortune III.
 
-- Planted directly (no separate seeds); 20% seed-loss mechanic does not apply.
+
+### Golden Sweet Berries — PLANNED; proposed custom growth stages
+
+- Planted directly (no separate seeds); the 20% no-seed mechanic does not apply.
 - Recipe JSON: 4 gold ingots corners, 5 sweet berries sides and center.
-- Golden Sweet Berries food: **3 hunger, 1.8 saturation** under 1.5× rules, **Fire Resistance for 15 seconds**.
-- Fortune III discovery target **1/50** from mature vanilla berry bush.
-- **OPEN:** berry harvest quantities, Fortune 0–II discovery rates, exact maturity handling and whether the previously discussed bone meal center variant is desired.
+- Golden Sweet Berries food: **3 hunger, 1.8 saturation**, **Fire Resistance for 15 seconds**.
+- Rare Golden Sweet Berries discovery: **1/50 Fortune III** from the **fully mature vanilla Sweet Berry Bush** (vanilla age 3).
+- **Proposed Golden Berry harvest stages:** Golden bush age **0–2: 0 berries**; age **3: 2–3 berries**; age **4: 3–4 berries**. **Fortune improves quantities and can raise the maximum**, but its per-level bonus or maximum is not yet specified.
+- **Technical difference:** vanilla sweet berry bushes have **ages 0–3**, with yields at ages 2 and 3. This five-stage Golden Berry plan requires **custom age 0–4 behavior** rather than assuming vanilla age 4 exists.
+- **OPEN:** finalize whether the Golden Berry bush should truly have five ages rather than vanilla's four, Fortune yield tables, Fortune 0–II rare discovery rates, and exact growth/harvest handling. The previously discussed alternate recipe center item remains unconfirmed.
 
-### Golden Carrot — PLANNED
 
-- Vanilla Golden Carrot crafting remains available; plant Golden Carrot directly.
-- Intended as **best overall saturation food** in ranking; **do not automatically apply 1.5× to it without checking existing vanilla Golden Carrot stats and deciding an exception**.
-- **OPEN:** growth/harvest, whether new edible stats are needed (the vanilla Golden Carrot already exists), rare discovery mechanic.
+### Golden Carrot — PLANNED; planting and yields recovered
+
+- Use Minecraft's **existing Golden Carrot item and crafting recipe** (no second custom Golden Carrot item and no Golden Carrot seeds).
+- Add the ability to **plant the existing Golden Carrot directly** on farmland. Vanilla Golden Carrots are normally food/brewing ingredients, not plantable crops.
+- Proposed/approved Golden Carrot crop harvest ranges (Golden Carrots per mature crop), **with Fortune increasing both minimum and maximum**:
+
+| Tool enchantment | Golden Carrots per mature crop |
+|---|---:|
+| No Fortune | **1–5** |
+| Fortune I | **2–6** |
+| Fortune II | **3–7** |
+| Fortune III | **4–8** |
+
+- Preserve the existing vanilla Golden Carrot's place as the **best saturation food**. Vanilla stats: **6 hunger, 14.4 saturation**. A nutrition change was **not** explicitly approved, so do **not** blindly apply the Golden Crops 1.5× food rule to this already-vanilla item.
+- No rare Golden Carrot discovery from ordinary carrots has been approved; acquisition is through existing vanilla Golden Carrot crafting/trading/etc.
+- **OPEN:** immature harvest behavior, exact Fortune yield distribution within listed bounds, growth rate, effects of Golden Bone Meal and Grow Lights, and whether to alter vanilla food values (default is **no**).
 
 ## 5. Food ranking — LOCKED intended order
 
@@ -158,8 +178,10 @@ Golden Wheat and Golden Mushroom are ingredients, not separately ranked edible f
 - **Second harvest is final:** tree exhausts with 100% certainty; golden leaves disappear permanently; vanilla oak/dark oak logs remain. This replaces earlier random exhaustion idea.
 - Golden Apple Sapling chance **only on final harvest**: no Fortune **5%**, I **10%**, II **15%**, III **20%**.
 - Vanilla bone meal does not work on Golden Apple Sapling; planned **Golden Bone Meal does**.
-- Natural tree growth roughly twice as long as vanilla was discussed **PROVISIONALLY**.
-- **OPEN:** exact sapling variants/texture implementation, harvest bookkeeping, loaded-chunk performance, and growth speed.
+- **Updated natural growth design:** approximately **1.5× comparable vanilla tree growth time** for Golden Apple Trees; target **at least 5 minutes** in ordinary conditions. Vanilla oak/dark oak growth is random, so these are **mod-design timing targets**, not guaranteed vanilla timings.
+- Golden Grow Lights may reduce the above baseline growth duration in their effective area. Specify exact multiplier and minimum under a light during implementation. Growth timing may depend on loaded ticks.
+- Golden Apple Trees use **single-tree forms**; **do not generate 2×2 dark-oak mega trees** as the golden variant.
+- **OPEN:** exact growth algorithm, sapling variants/texture implementation, harvest bookkeeping, and loaded-chunk performance.
 
 ### Enchanted Golden Apple Sapling — PLANNED
 
@@ -172,32 +194,81 @@ Recipe grid:
 | Netherite Ingot | Magma Cream | Enchanted Golden Apple |
 
 - Vanilla bone meal **and Golden Bone Meal** do **not** work on the enchanted sapling.
-- Special tree behavior, growth, drops, and balance **OPEN**; do not invent.
+- **Enchanted Golden Apple Tree growth target:** approximately **2× the comparable vanilla tree growth time**, with a baseline **minimum of 10 minutes**; Golden Grow Lights may reduce that baseline according to their growth bonus. Exact algorithm and illuminated minimum **OPEN**.
+- Enchanted Golden Apple Tree uses **one harvest only**, **no fruit regeneration**, and **fewer apples than ordinary Golden Apple Trees**. Fruit-bearing leaves are intended to be rarer; **no exact apple count was recovered**.
+- Enchanted Golden Apple Sapling recovery is **chance-based**, never guaranteed to sustain itself indefinitely. **Exact percentage remains OPEN**.
+- **OPEN:** enchanted tree shape, exact growth/drop probabilities, yield, sapling-recovery source, and implementation details. Do not invent numbers.
 - Existing advancement concept: **Forbidden Orchard** (Challenge).
 
-## 7. Golden Grow Lights — LOCKED design, not implemented
 
-- Three variants: **Torch, Lantern, Glowstone**.
-- Recipe concept: **8 gold ingots surrounding the corresponding vanilla light**.
-- Affect **Golden Crops only**.
-- Area: **11×11** around the light (exact vertical reach/stacking rules **OPEN**).
-- Approximately **2× growth** from light alone.
-- Combined light + Golden Fertilizer cap: **2.5×** growth (not multiplicative beyond cap).
-- **OPEN:** technical tick implementation, whether light effects stack, exact placement/radius behavior.
+## 7. Golden Grow Lights — LOCKED core design; other bonuses need specification
+
+- **Current approved design uses three variants:** **Torch, Lantern, Glowstone**, each crafted by surrounding its vanilla light with **8 gold ingots**. An early single-Lantern-only design was a **proposal**, superseded by the later three-variant decision.
+- Apply to **Golden Crops and designated Golden Apple Tree growth**; not ordinary vanilla crops.
+- Area for crop bonuses: **11×11** (vertical range and how tree saplings count **OPEN**).
+- Crop growth speed: approximately **2×** with the light alone.
+- Light + Golden Fertilizer: **2.5× maximum combined crop-growth multiplier**.
+- Early design additionally envisioned **modest yield improvements** and better chances of sustainable golden planting-material recovery near the light. **Exact values and whether all crop types receive these bonuses remain OPEN**. Do not silently assume a numeric yield bonus.
+- **No infinite stacking:** overlapping lights must not multiply the bonus without limit; choose exact overlap rules in implementation.
+- Golden Apple Tree and Enchanted Golden Apple Tree natural growth may be accelerated by the light, but exact tree growth rate/minimum under illumination is **OPEN**.
+- **OPEN:** technical tick implementation, vertical range, stacking rules, grow-light interaction with Golden Bone Meal bonuses, and exact yield/sustainability effects.
+
 
 ## 8. Golden Fertilizer and irrigation — LOCKED design, not implemented
 
 - Apply Golden Fertilizer to **water** for irrigation effect; **Shift-remove**.
-- Planned coverage: **8×8**; exact shape/center **OPEN**.
-- Fertilizer consumed on harvest; per-farmland charges cap **64**.
-- Obtain via **smelting raw golden harvests**, excluding prepared foods and apples; output **1/2/4** depending on input category.
-- **OPEN:** precise ingredient-to-output mapping, visual feedback, whether water or farmland holds charges, save/load persistence, interactions with Golden Grow Lights.
+- Planned coverage: **8×8**; precise shape/center **OPEN**.
+- Charged farmland makes crops **grow faster across harvests**, not instantly; fertilizer consumption is linked to harvesting.
+- Charge cap: **64 per farmland position** (preserve water/farmland data-storage design decision for implementation).
+- Obtain fertilizer by using the **Smoker** with eligible raw Golden harvest items. **No prepared stews, baked foods, Golden Apples, or saplings** in this fertilizer conversion system.
+- **Recovered Smoker input/output mapping (latest user correction: all prior 3 outputs become 4):**
 
-## 9. Golden Composter and Golden Bone Meal — PLANNED
+| Smoker input | Golden Fertilizer output |
+|---|---:|
+| Golden Sweet Berries | **1** |
+| Golden Potato | **2** |
+| Golden Beetroot | **2** |
+| Golden Melon Slice | **2** |
+| Golden Wheat | **4** |
+| Golden Carrot | **4** |
+| Golden Mushroom | **4** |
 
-- Golden Composter and Golden Bone Meal are planned.
-- Golden Bone Meal works on ordinary Golden Apple Sapling, not enchanted sapling.
-- **OPEN:** recipes, compost acceptance/output, crop interaction, exact growth acceleration, balance. No unapproved specifics.
+- These are outputs **per eligible item cooked**; verify recipe feasibility for existing vanilla Golden Carrot and avoid unintended competing recipes.
+- Combined Golden Grow Light + Golden Fertilizer caps crop growth acceleration at **2.5×**.
+- **OPEN:** whether the fertilizer is applied/stored on the water block, farmland, or saved data; how water coverage maps to farmland charges; exact consumption per harvest; feedback/visuals, save/load persistence, and conflicts with Smoker food recipes.
+
+
+## 9. Golden Composter and Golden Bone Meal — LOCKED design, not implemented
+
+### Golden Composter
+
+- **Dedicated custom Golden Composter block**, not a modified vanilla Composter and not a “last Golden item wins” mechanic.
+- **Crafting grid:** left/right columns each contain **two slabs** (top and middle); **bottom row has 3 Gold Blocks**; top/middle center slots are empty:
+
+```text
+Slab   [empty]  Slab
+Slab   [empty]  Slab
+Gold Block  Gold Block  Gold Block
+```
+
+- **Eligible inputs:** Golden planting materials, seeds/spores, and raw Golden foods/harvests: Golden Wheat Seeds/Wheat, Golden Beetroot Seeds/Beetroot, Golden Melon Seeds/Slices, Golden Potato, Golden Sweet Berries, Golden Mushroom Spores/Mushroom, and Golden Carrot. Extend this list only after checking balance.
+- **Excluded:** Golden Apples, Enchanted Golden Apples, both ordinary/enchanted Golden Apple Saplings, stews and other prepared dishes. Exact handling of Golden Baked Potato and Golden Bread follows the prepared-food exclusion; they should **not** count as raw harvests.
+- **Deterministic, no chance rolls:** each eligible item adds **exactly one of eight internal contributions**. No random chance for whether the compost increases.
+- **Eight eligible items** -> full composter -> collect **one Golden Bone Meal**. Consumes those eight items and resets the composter.
+- **Five visual fill stages** including empty: **0, 1, 2, 3, 4 (full)**. Internally track **eight item inputs** and map them to the five appearances; no need for eight separate visual models.
+- The earlier concepts of “3–4 successful items,” chance-based filling, vanilla composter mixing, and a possible 1.20× composter yield were **superseded**. The locked product is exactly one Golden Bone Meal per eight valid Golden inputs.
+- **OPEN implementation details:** precise internal-count-to-visual-stage thresholds and model, block UI/sounds, handling automation/hoppers, when full compost becomes collectible.
+
+### Golden Bone Meal
+
+- **Single-use instant-growth upgrade:** applying **one Golden Bone Meal to a vanilla or Golden Crop instantly matures that crop**.
+- It grants **+75% yield (1.75×)** on **that one crop's next harvest only**. No permanent boost to the underlying farmland.
+- **Fortune first, then 1.75× bonus** for applicable harvested-item quantities.
+- Use **probabilistic rounding** to preserve fractional expected yields: e.g., a 5.25 calculated amount becomes **5 items, with a 25% chance of a sixth**.
+- Distinguish **harvest output** from rare seed discovery and planting materials; exact eligible loot categories for 1.75× bonus are **OPEN**, so don't accidentally multiply rare-drop probability.
+- Also usable on an **ordinary Golden Apple Sapling** to accelerate or trigger its growth. **Neither vanilla bone meal nor Golden Bone Meal works on the Enchanted Golden Apple Sapling**; vanilla bone meal does not work on ordinary Golden Apple Saplings either.
+- **OPEN:** whether Golden Bone Meal instantly grows the ordinary Golden Apple Sapling or instead makes significant growth progress; interactions with trees, Grow Lights and fertilizer; exact persistent flag/one-harvest tracking and harvesting without breaking the block.
+- The earlier 1.20× value was associated with a tentative **composter** output idea, **not** the locked 1.75× Golden Bone Meal harvest bonus.
 
 ## 10. Advancements — LOCKED names and tiers
 
@@ -205,9 +276,10 @@ Recipe grid:
 **Goals:** Golden Fields; Golden Harvest; Golden Diet; Liquid Gold; Let There Be Gold.  
 **Challenge:** Forbidden Orchard.
 
-- Exact trigger conditions **OPEN** where not documented.
+- **The advancement tree, names, frame types and requirements were previously described as locked for 1.0**, but the pasted recovery text only contains names/frame types. **Exact per-advancement triggering rules have not been recovered yet**: search original advancement planning before writing advancement JSONs.
+- Recorded overall milestone ideas (not an authoritative mapping to the nine named advancements): **plant first Golden Crop, harvest first Golden Crop, plant every Golden Crop, harvest every Golden Crop, eat every Golden Food**, and obtain/grow an Enchanted Golden Apple Tree as an endgame Challenge.
 - Earlier guiding rule: first-item discoveries are Tasks, all/every collection achievements are Goals, enchanted tree is Challenge.
-- Validate each advancement against the actual shipped items and mechanics.
+- Validate triggers against actual shipped crops/items, including light and fertilizer prerequisites where appropriate.
 
 ## 11. Recipe inventory and current source status
 
@@ -238,7 +310,8 @@ Golden Bread recipe already existed and was tested. Recipes for unregistered ite
 4. Golden Sweet Berries, Golden Mushroom, Golden Carrot.
 5. Golden Apple Trees and Enchanted Golden Apple Tree.
 6. Golden Grow Lights, Golden Composter/Bone Meal, Golden Fertilizer/irrigation.
-7. Advancements, compatibility, balance, regression tests, releases.
+7. Advancements; verify ordinary crafting recipe visibility in JEI/REI/EMI, with custom integration only if actually needed.
+8. Compatibility, balance, regression tests, releases. **Fabric first; Forge/NeoForge is a potential future separate port**. Decide future Minecraft version groups after comparing APIs; do not assume a single JAR can span 1.20–26.3.
 
 ### Testing checklist for each crop
 
@@ -262,6 +335,9 @@ Golden Bread recipe already existed and was tested. Recipes for unregistered ite
 - Do not use AI-generated images for Modrinth project pages.
 - Consider compatibility with **Raixu27's 3×3 farm datapack**, but test before making a compatibility claim.
 - Track dependencies, supported Minecraft versions, Fabric API and Java requirements, screenshots, known limitations, and performance caveats.
+- **1.0 scope:** Golden Crops' nine-plant roster; farming mechanics in this plan. **Villager interaction/trading changes deferred** to later updates.
+- **Fabric first**, with future Forge/NeoForge support requiring a distinct port. Select future version groups based on tested APIs, not arbitrary blanket 1.20–26.3 claims.
+- **JEI/REI/EMI:** ordinary Minecraft recipe JSONs should generally appear through recipe viewers; only develop custom integration if a custom crafting/farming mechanic demonstrably needs it.
 - Keep changelogs distinct from design proposals: **planned**, **implemented**, **tested**, **released**.
 
 ## 14. Known ambiguities and corrections to preserve
@@ -271,8 +347,14 @@ Golden Bread recipe already existed and was tested. Recipes for unregistered ite
 - **Golden Melon:** normal melon blocks do not drop ordinary seeds. Only **vanilla melon blocks** get the additional rare golden-seed roll. Golden melon blocks drop slices or Silk Touch block only.
 - **Golden Beetroot:** intended 0.60%/0.70% mid-Fortune rates are approximated by 1/167 and 1/143, not identical.
 - **Golden Carrot:** vanilla already has a Golden Carrot food; do not accidentally overwrite vanilla food properties without a conscious design decision.
-- **Golden Mushroom:** “only mature vanilla crops” cannot literally apply to mushrooms; specify a special eligible source.
-- **Golden Sweet Berries:** bushes have growth stages; rare discovery only from mature bushes, not each berry item.
+- **Golden Mushroom:** “only mature vanilla crops” cannot literally apply to mushrooms; **breaking a vanilla red or brown mushroom** is the recovered discovery trigger. Huge-mushroom blocks remain unapproved.
+- **Golden Mushroom Stew:** 10 hunger was explicitly recovered later, superseding the earlier inferred 9; Saturation effect 0.35 seconds follows *Suspicious Stew*, not vanilla ordinary Mushroom Stew.
+- **Golden Sweet Berries:** vanilla bush has age 0–3; the newly proposed Golden bush age **0–4** needs custom handling. Rare discovery remains from the mature vanilla bush, not each berry item.
+- **Golden Composter:** exactly eight guaranteed golden-item contributions and one Golden Bone Meal; the chance-based/3–4-input proposals are obsolete.
+- **Golden Bone Meal:** 1.75× crop next-harvest yield with probabilistic rounding; separate from Golden Fertilizer/Grow Light growth bonuses.
+- **Golden Fertilizer:** the user's latest correction changed all three fertilizer-output categories **from 3 to 4**, while 1 and 2 stay unchanged.
+- **Golden Apple Trees:** baseline growth ~1.5× vanilla, at least 5 minutes; Enchanted baseline ~2× vanilla, at least 10 minutes; Grow Lights may accelerate, but implementation rates remain open.
+- **Villager interactions and special trades:** intentionally **deferred to future updates**, not 1.0.
 - **Golden Melon 20% seed-loss:** does not apply to melon block harvesting because golden melon blocks drop no seeds.
 - Original planning also mentioned a Golden Apple Sapling recipe corner decision; current committed recipes use **gold blocks**, so use those unless explicitly revised.
 - Distinguish historical concepts from locked designs; do not silently reconstruct forgotten numbers.
