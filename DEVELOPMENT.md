@@ -264,7 +264,8 @@ Gold Block  Gold Block  Gold Block
 - It grants **+75% yield (1.75×)** on **that one crop's next harvest only**. No permanent boost to the underlying farmland.
 - **Fortune first, then 1.75× bonus** for applicable harvested-item quantities.
 - Use **probabilistic rounding** to preserve fractional expected yields: e.g., a 5.25 calculated amount becomes **5 items, with a 25% chance of a sixth**.
-- Distinguish **harvest output** from rare seed discovery and planting materials; exact eligible loot categories for 1.75× bonus are **OPEN**, so don't accidentally multiply rare-drop probability.
+- **LOCKED (Option A):** the **1.75× bonus applies to both harvested crops/foods and their planting-material drops (seeds, etc.)**, for eligible vanilla and Golden Crops. Calculate ordinary drops including Fortune first, then apply 1.75× with probabilistic rounding to each eligible drop quantity.
+- Preserve the Golden seed-producing crop's independent **20% no-seed chance**: if the seed roll fails, no seeds are produced and the multiplier does not create any. **Rare golden discovery probabilities are not multiplied** by Golden Bone Meal; only quantities of ordinary eligible harvest drops are boosted.
 - Also usable on an **ordinary Golden Apple Sapling** to accelerate or trigger its growth. **Neither vanilla bone meal nor Golden Bone Meal works on the Enchanted Golden Apple Sapling**; vanilla bone meal does not work on ordinary Golden Apple Saplings either.
 - **OPEN:** whether Golden Bone Meal instantly grows the ordinary Golden Apple Sapling or instead makes significant growth progress; interactions with trees, Grow Lights and fertilizer; exact persistent flag/one-harvest tracking and harvesting without breaking the block.
 - The earlier 1.20× value was associated with a tentative **composter** output idea, **not** the locked 1.75× Golden Bone Meal harvest bonus.
