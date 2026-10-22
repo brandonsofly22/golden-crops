@@ -134,7 +134,7 @@ For beetroot, the intended intermediate rates are **0.60% and 0.70%**, not exact
 - Golden Sweet Berries food: **3 hunger, 1.8 saturation**, **Fire Resistance for 15 seconds**.
 - Rare Golden Sweet Berries discovery: **1/50 Fortune III** from the **fully mature vanilla Sweet Berry Bush** (vanilla age 3).
 - **LOCKED Golden Sweet Berry harvest stages (vanilla-style ages 0–3):** age **0: 0 berries**; age **1: 0 berries**; age **2: 2–3 berries**; age **3: 3–4 berries**. This supersedes the previously discussed age 0–4 proposal.
-- **Fortune increases harvest yields and may raise the maximum**; exact per-level bonuses remain **OPEN**.
+- **LOCKED Fortune harvest yields (2026-10-22):** Fortune 0: age 2 **2–3**, age 3 **3–4**; Fortune I: age 2 **3–4**, age 3 **4–5**; Fortune II: age 2 **4–5**, age 3 **5–6**; Fortune III: age 2 **5–6**, age 3 **6–7**. Ages 0–1 yield 0 at every Fortune level. Each Fortune level adds one to both minimum and maximum at ages 2–3. These are design targets, **not yet tested in-game**.
 - **LOCKED Golden Bone Meal behavior:** after a Golden Sweet Berry Bush has been harvested, the player can apply Golden Bone Meal to the still-planted bush. It instantly grows to maturity and marks **only its next right-click berry harvest** for the **1.75× quantity bonus** (after Fortune, with probabilistic rounding). That right-click harvest **consumes and clears the bonus**. The bush remains planted and later harvests are normal unless Golden Bone Meal is applied again. No permanent yield buff or repeated free bonus.
 - **OPEN:** Fortune 0–II rare discovery rates and exact growth/harvest implementation.
 
