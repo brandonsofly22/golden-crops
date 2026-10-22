@@ -134,6 +134,7 @@ For beetroot, the intended intermediate rates are **0.60% and 0.70%**, not exact
 - Rare Golden Sweet Berries discovery: **1/50 Fortune III** from the **fully mature vanilla Sweet Berry Bush** (vanilla age 3).
 - **LOCKED Golden Sweet Berry harvest stages (vanilla-style ages 0–3):** age **0: 0 berries**; age **1: 0 berries**; age **2: 2–3 berries**; age **3: 3–4 berries**. This supersedes the previously discussed age 0–4 proposal.
 - **Fortune increases harvest yields and may raise the maximum**; exact per-level bonuses remain **OPEN**.
+- **LOCKED Golden Bone Meal behavior:** after a Golden Sweet Berry Bush has been harvested, the player can apply Golden Bone Meal to the still-planted bush. It instantly grows to maturity and marks **only its next right-click berry harvest** for the **1.75× quantity bonus** (after Fortune, with probabilistic rounding). That right-click harvest **consumes and clears the bonus**. The bush remains planted and later harvests are normal unless Golden Bone Meal is applied again. No permanent yield buff or repeated free bonus.
 - **OPEN:** Fortune 0–II rare discovery rates and exact growth/harvest implementation.
 
 ### Golden Carrot — PLANNED; planting and yields recovered
@@ -266,8 +267,9 @@ Gold Block  Gold Block  Gold Block
 - Use **probabilistic rounding** to preserve fractional expected yields: e.g., a 5.25 calculated amount becomes **5 items, with a 25% chance of a sixth**.
 - **LOCKED (Option A):** the **1.75× bonus applies to both harvested crops/foods and their planting-material drops (seeds, etc.)**, for eligible vanilla and Golden Crops. Calculate ordinary drops including Fortune first, then apply 1.75× with probabilistic rounding to each eligible drop quantity.
 - Preserve the Golden seed-producing crop's independent **20% no-seed chance**: if the seed roll fails, no seeds are produced and the multiplier does not create any. **Rare golden discovery probabilities are not multiplied** by Golden Bone Meal; only quantities of ordinary eligible harvest drops are boosted.
+- **LOCKED renewable bush exception:** Golden Sweet Berry Bushes can receive Golden Bone Meal **after the previous right-click harvest** while the bush remains planted; it instantly matures the bush, and **the next right-click berry harvest receives the one-time 1.75× bonus**. Clear the bonus flag as soon as that harvest happens; no subsequent berry harvest receives it without another application. The bonus is tied to the bush, not the farmland.
 - Also usable on an **ordinary Golden Apple Sapling** to accelerate or trigger its growth. **Neither vanilla bone meal nor Golden Bone Meal works on the Enchanted Golden Apple Sapling**; vanilla bone meal does not work on ordinary Golden Apple Saplings either.
-- **OPEN:** whether Golden Bone Meal instantly grows the ordinary Golden Apple Sapling or instead makes significant growth progress; interactions with trees, Grow Lights and fertilizer; exact persistent flag/one-harvest tracking and harvesting without breaking the block.
+- **OPEN:** whether Golden Bone Meal instantly grows the ordinary Golden Apple Sapling or instead makes significant growth progress; interactions with trees, Grow Lights and fertilizer; exact technical implementation of the now-locked one-harvest persistent flag for right-click berry harvesting.
 - The earlier 1.20× value was associated with a tentative **composter** output idea, **not** the locked 1.75× Golden Bone Meal harvest bonus.
 
 ## 10. Advancements — LOCKED names and tiers
