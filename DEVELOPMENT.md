@@ -1,7 +1,7 @@
 # Golden Crops — Development Plan and Decision Log
 
 > **Project status:** Active development. This file is the durable source of truth for design decisions, implementation status, testing, and publication notes.  
-> **Last planning update:** 2026-10-21  
+> **Last planning update:** 2026-10-22  
 > **Important:** “Locked” means approved design, **not** necessarily implemented. Mark changes here when implemented and verified in-game.
 
 ## 1. Project identity and technical baseline
@@ -33,6 +33,7 @@
 4. Golden foods generally restore **1.5× the vanilla food's hunger (rounded up to a whole point)** and **1.5× its vanilla saturation**. Exceptions may be explicitly approved; existing Golden Bread stays unchanged.
 5. Distinguish “saturation restored” from saturation modifiers in code; validate actual food component values in-game.
 6. Food effects and crop yields are individual specifications, not automatically inferred from the multiplier.
+7. **Default growth speed — LOCKED 2026-10-22:** Every Golden Crop grows at the **same baseline speed as its vanilla counterpart**, unless a different growth rate was explicitly approved. This includes Golden Wheat, Golden Beetroot, Golden Carrot, Golden Potato, Golden Melon, Golden Sweet Berries, and other applicable crops. Golden Apple Trees have their **separately specified slower growth timing**. Golden Grow Lights, Golden Fertilizer, and Golden Bone Meal can modify growth as documented in their own sections. This is a design rule; confirm actual speeds in-game before marking tested.
 
 ### Rare discovery rates — Fortune III targets LOCKED
 
@@ -72,7 +73,7 @@ For beetroot, the intended intermediate rates are **0.60% and 0.70%**, not exact
 - Source files include `GoldenWheatCropBlock.java`, `ModBlocks.java`, `ModItems.java`, `ModFoods.java`, `ModLootTables.java`, resources.
 - Rare wheat discovery implemented with Fabric `LootTableEvents.MODIFY`; temporary test odds were restored to production odds.
 
-### Golden Beetroot — PLANNED; crop class created, registration prepared
+### Golden Beetroot — PARTIALLY IMPLEMENTED locally; gameplay not yet tested
 
 - `GoldenBeetrootCropBlock` extends vanilla `BeetrootBlock`; **4 growth stages (0–3)**, farmland, bonemealable.
 - Mature harvest: **1–2 Golden Beetroots**, independent of Fortune.
@@ -83,8 +84,8 @@ For beetroot, the intended intermediate rates are **0.60% and 0.70%**, not exact
 - Golden Beetroot Soup: **9 hunger, 10.8 saturation, Strength II for 30 seconds**, stack 1.
 - Soup recipe: shapeless **6 Golden Beetroots + 1 Bowl**.
 - Seed recipe: 3×3, **4 gold ingots in corners, 4 beetroot on sides, beetroot seeds in center**.
-- **Next implementation:** finish `ModBlocks.java` registration (confirm local file), `ModItems.java`, `ModFoods.java`, models, textures, loot tables, rare discovery and tests.
-- Crop class was created during conversation; **do not mark registration tested**.
+- **Local work reported 2026-10-22:** `GoldenBeetrootCropBlock.java`, `ModBlocks.java` registration, `ModItems.java` registrations, `ModFoods.java` food/effects, golden beetroot crop loot table, four-stage blockstate, four crop block models, three item definitions, and three item models were added or prepared in IntelliJ. The creator also reported placing finalized textures in the project's textures folders. IntelliJ reported **zero red errors** after these steps; **no build or in-game validation yet**. These local changes may not be committed to GitHub.
+- **Next implementation:** verify crop uses Golden Beetroot Seeds for any base-seed behavior, add rare Golden Beetroot Seed discovery from mature vanilla beetroot, check translations and texture/resource paths, compile, and test all planting, harvest, Fortune, food, bowl, and recipe behavior. **Do not mark as TESTED until verified in-game.**
 
 ### Golden Melon — PLANNED
 
@@ -315,6 +316,8 @@ Golden Bread recipe already existed and was tested. Recipes for unregistered ite
 7. Advancements; verify ordinary crafting recipe visibility in JEI/REI/EMI, with custom integration only if actually needed.
 8. Compatibility, balance, regression tests, releases. **Fabric first; Forge/NeoForge is a potential future separate port**. Decide future Minecraft version groups after comparing APIs; do not assume a single JAR can span 1.20–26.3.
 
+**Release scope — LOCKED 2026-10-22:** The first public **Golden Crops 1.0** release is intended to include **all planned 1.0 systems**, not an early crops-only subset: Golden Wheat/Bread, Golden Beetroot/Soup, Golden Melon, Golden Potato/Baked Potato, Golden Sweet Berries, Golden Mushrooms/Stew, plantable vanilla Golden Carrots, ordinary and Enchanted Golden Apple Trees, Golden Grow Lights (Torch/Lantern/Glowstone), Golden Fertilizer/irrigation, Golden Composter and Golden Bone Meal, and the nine planned advancements. The agreed recipes, loot/discovery rules, effects, and farming mechanics are part of this scope. Villager trading changes are **post-1.0**, not a blocker. **No public submission date has been set.** Do not prepare or lock a final public description yet.
+
 ### Testing checklist for each crop
 
 - Registries and resource loading; no missing models/textures or recipe parse errors.
@@ -326,7 +329,36 @@ Golden Bread recipe already existed and was tested. Recipes for unregistered ite
 - Multiplayer/server compatibility, reload/persistence, performance.
 - Record tested Minecraft/Fabric/Java versions and date.
 
-## 13. Publication, permissions, and AI disclosure notes
+## 13. Golden Crops 1.0 release-readiness checklist — NOT YET READY
+
+**Purpose:** A go/no-go gate for the **complete planned 1.0 release** on Modrinth and CurseForge, with GitHub as source/release tracker. No target submission date and no finished public description are required during current development. Reassess each item before submitting. Checkboxes below are deliberately **unchecked** until independently verified; implemented or planned is not the same as tested.
+
+### Scope and implementation
+- [ ] All seven crop/harvest systems are implemented and working: Golden Wheat, Beetroot, Melon, Potato, Sweet Berries, Mushroom, and plantable vanilla Golden Carrot; food variants and recipes match the locked plan.
+- [ ] Ordinary Golden Apple Trees and Enchanted Golden Apple Trees are implemented, including saplings, growth, harvest limits, regeneration/exhaustion, Fortune, and recovery chances.
+- [ ] All three Golden Grow Lights, Golden Fertilizer/irrigation, Golden Composter, and Golden Bone Meal are implemented and work together within agreed growth/yield caps.
+- [ ] All nine planned advancements are implemented with verified triggers.
+- [ ] Remaining OPEN balance and behavior decisions affecting 1.0 are resolved and recorded in this document; no unapproved behavior is silently substituted.
+
+### Gameplay and technical verification
+- [ ] Clean Gradle build succeeds for the intended Minecraft 26.2 / Fabric / Java 25 configuration; packaged JAR launches in a fresh game installation.
+- [ ] All registry entries, recipes, item definitions, blockstates, models, translations, and textures load without missing assets or datapack errors.
+- [ ] Every crop passes planting, baseline growth speed, maturity, immature/mature loot, Fortune I–III, Silk Touch where relevant, rare vanilla discovery, and Golden Bone Meal tests.
+- [ ] All foods pass hunger/saturation/effect-duration/amplifier checks; soups/stews return bowls correctly; recipe inputs and outputs match.
+- [ ] Trees and special farming systems pass repeated harvests, save/reload, unloaded-chunk behavior, persistence, and interaction/stacking tests.
+- [ ] Dedicated server and multiplayer gameplay tested; no critical crashes, duplication exploits, progression blockers, or unacceptable performance problems.
+- [ ] Regression test confirms vanilla crop behavior is unchanged except for deliberately added rare drops and other explicitly approved interactions.
+
+### Publication and permissions
+- [ ] Shipping assets are confirmed manually authored or permitted, with attribution/redistribution conditions verified for any Lupin “Golden Foods” textures; no AI-generated preview/reference imagery is shipped.
+- [ ] Code license and asset permissions are represented accurately; replace the starter Fabric template text in `README.md` before release.
+- [ ] Modrinth/CurseForge release metadata is prepared when ready: honest description, feature list, supported game/loader/Java versions, dependencies, credits, disclosures, screenshots, and changelog.
+- [ ] Release JAR, source tag/release, installation instructions, and issue-reporting location are verified; final 1.0 scope and known limitations are accurately communicated.
+- [ ] Final go/no-go review completed; submit to Modrinth and CurseForge only after blockers above are resolved.
+
+**Current assessment (2026-10-22): NOT READY.** Golden Wheat has been tested, while Golden Beetroot is only partially implemented locally and most 1.0 systems are still planned. Zero IDE errors alone are not proof of release readiness.
+
+## 14. Publication, permissions, and AI disclosure notes
 
 **Platforms:** Modrinth, CurseForge, GitHub. Prepare honest project descriptions, feature list, installation requirements, compatibility, changelog, issues/wiki, screenshots and attribution.
 
@@ -342,7 +374,7 @@ Golden Bread recipe already existed and was tested. Recipes for unregistered ite
 - **JEI/REI/EMI:** ordinary Minecraft recipe JSONs should generally appear through recipe viewers; only develop custom integration if a custom crafting/farming mechanic demonstrably needs it.
 - Keep changelogs distinct from design proposals: **planned**, **implemented**, **tested**, **released**.
 
-## 14. Known ambiguities and corrections to preserve
+## 15. Known ambiguities and corrections to preserve
 
 - **Golden Potato:** initial mature yield 2–5 was revised to **2–6**. Golden Baked Potato changed from Regeneration I for 5–10 seconds to **Regeneration II for 8 seconds**.
 - **Golden Apple Trees:** old possible 10–25% sapling/return and random exhaustion discussions were superseded by **final-harvest 5/10/15/20% sapling chances** and **guaranteed exhaustion after second harvest**.
@@ -361,11 +393,11 @@ Golden Bread recipe already existed and was tested. Recipes for unregistered ite
 - Original planning also mentioned a Golden Apple Sapling recipe corner decision; current committed recipes use **gold blocks**, so use those unless explicitly revised.
 - Distinguish historical concepts from locked designs; do not silently reconstruct forgotten numbers.
 
-## 15. Git and update workflow
+## 16. Git and update workflow
 
 - Repository `main` tracks `origin/main`.
 - GitHub-web recipe edits were brought to the PC with `git pull --ff-only`.
 - After changes on GitHub, **pull before editing/pushing local files** to avoid conflicts.
 - On PC, update this document alongside implementation and use descriptive commits.
 - Avoid rewriting published commit history just to rename an old commit.
-- This document is a snapshot of decisions through 2026-10-21; update it when new decisions are made.
+- This document is a snapshot of decisions through 2026-10-22; update it when new decisions are made.
