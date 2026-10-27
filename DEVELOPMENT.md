@@ -1,8 +1,10 @@
 # Golden Crops — Development Plan and Decision Log
 
 > **Project status:** Active development. This file is the durable source of truth for design decisions, implementation status, testing, and publication notes.  
-> **Last planning update:** 2026-10-22  
+> **Last planning update:** 2026-10-24  
 > **Important:** “Locked” means approved design, **not** necessarily implemented. Mark changes here when implemented and verified in-game.
+>
+> **Companion history:** [CHAT_HISTORY.md](CHAT_HISTORY.md) preserves chronological discussions, testing, mistakes/corrections, asset permissions, and the PaletteReader/Paint.NET texture workflow. This file remains the authoritative specification and release-readiness checklist.
 
 ## 1. Project identity and technical baseline
 
@@ -53,11 +55,11 @@ Golden Apple Sapling recovery uses the separate tree system. Golden Carrots use 
 | Item | No Fortune | Fortune I | Fortune II | Fortune III |
 |---|---:|---:|---:|---:|
 | Golden Wheat Seeds (implemented) | 1/450 | 1/375 | 1/300 | 1/250 |
-| Golden Beetroot Seeds | 1/200 | 1/167 approx. (0.60%) | 1/143 approx. (0.70%) | 1/125 |
+| Golden Beetroot Seeds | 1/200 | 1/175 | 1/150 | 1/125 |
 | Golden Melon Seeds | 1/280 | 1/245 | 1/210 | 1/175 |
 | Golden Potato | 1/240 | 1/210 | 1/180 | 1/150 |
 
-For beetroot, the intended intermediate rates are **0.60% and 0.70%**, not exactly 1/167 and 1/143. Other crops' Fortune 0–II odds remain **OPEN**.
+Golden Beetroot odds were corrected during local implementation to denominators **200 / 175 / 150 / 125** (Fortune 0–III); earlier 1/167 and 1/143 approximations are obsolete. Other crops' Fortune 0–II odds remain **OPEN**.
 
 ## 4. Crops and food: detailed specifications
 
@@ -73,11 +75,11 @@ For beetroot, the intended intermediate rates are **0.60% and 0.70%**, not exact
 - Source files include `GoldenWheatCropBlock.java`, `ModBlocks.java`, `ModItems.java`, `ModFoods.java`, `ModLootTables.java`, resources.
 - Rare wheat discovery implemented with Fabric `LootTableEvents.MODIFY`; temporary test odds were restored to production odds.
 
-### Golden Beetroot — PARTIALLY IMPLEMENTED locally; gameplay not yet tested
+### Golden Beetroot — IMPLEMENTED locally and PARTIALLY TESTED; final loot-table edit needs confirmation
 
 - `GoldenBeetrootCropBlock` extends vanilla `BeetrootBlock`; **4 growth stages (0–3)**, farmland, bonemealable.
 - Mature harvest: **1–2 Golden Beetroots**, independent of Fortune.
-- Mature seed quantity **if seeds drop**: Fortune 0 **1–3**, I **2–4**, II **3–5**, III **4–6**; **20% chance of no seeds**.
+- Mature seed quantity **if seeds drop**: Fortune 0 **2–4**, I **3–6**, II **4–8**, III **5–9**; **20% chance of no seeds**. The creator planned to update the existing loot-table numbers locally; final edited file has not been independently reviewed.
 - Immature harvest: **1 Golden Beetroot Seed**, no Golden Beetroot.
 - Rare seed discovery: only fully mature vanilla beetroot; odds in table above.
 - Golden Beetroot food: **2 hunger, 1.8 saturation, Strength I for 15 seconds**, stack 64.
@@ -85,7 +87,7 @@ For beetroot, the intended intermediate rates are **0.60% and 0.70%**, not exact
 - Soup recipe: shapeless **6 Golden Beetroots + 1 Bowl**.
 - Seed recipe: 3×3, **4 gold ingots in corners, 4 beetroot on sides, beetroot seeds in center**.
 - **Local work reported 2026-10-22:** `GoldenBeetrootCropBlock.java`, `ModBlocks.java` registration, `ModItems.java` registrations, `ModFoods.java` food/effects, golden beetroot crop loot table, four-stage blockstate, four crop block models, three item definitions, and three item models were added or prepared in IntelliJ. The creator also reported placing finalized textures in the project's textures folders. IntelliJ reported **zero red errors** after these steps; **no build or in-game validation yet**. These local changes may not be committed to GitHub.
-- **Next implementation:** verify crop uses Golden Beetroot Seeds for any base-seed behavior, add rare Golden Beetroot Seed discovery from mature vanilla beetroot, check translations and texture/resource paths, compile, and test all planting, harvest, Fortune, food, bowl, and recipe behavior. **Do not mark as TESTED until verified in-game.**
+- **2026-10-24 progress:** Golden Beetroot and Golden Wheat `getBaseSeedId()` pick-block overrides were added and game-tested. Rare Golden Beetroot Seed discovery from mature vanilla beetroot was added; Fortune denominators corrected to 200/175/150/125. A four-stage model texture-reference mismatch was corrected (actual PNGs `golden_beetroots_stageN.png`). `./gradlew.bat build` succeeded; food effects were tested, and 320 mature vanilla beetroot blocks yielded 4 rare seeds. Still verify the final revised golden beetroot harvest ranges, all Fortune levels, recipe/bowl behavior, and full regression tests. Local changes may not yet be pushed to GitHub.
 
 ### Golden Melon — PLANNED
 
@@ -308,7 +310,7 @@ Golden Bread recipe already existed and was tested. Recipes for unregistered ite
 
 ## 12. Implementation roadmap
 
-1. **Golden Beetroot**: finish block/item/food registration, crop visuals, loot tables, vanilla rare discovery; test maturity, Fortune, food and soup.
+1. **Golden Beetroot**: finish testing the final revised mature loot-table quantities, Fortune 0–III, planting, maturity, bowl return and recipes; prior build, food effects, rare discovery and pick-block tests passed.
 2. Golden Melon: stem/block behavior, 4–9 slice loot, Fortune weighting cap, Silk Touch, vanilla block discovery; test jungle and farm melons.
 3. Golden Potato: plant item, 2–6 yield, Fortune, no poisonous potatoes, rare discovery, baked food Regeneration II.
 4. Golden Sweet Berries, Golden Mushroom, Golden Carrot.
@@ -380,7 +382,7 @@ Golden Bread recipe already existed and was tested. Recipes for unregistered ite
 - **Golden Potato:** initial mature yield 2–5 was revised to **2–6**. Golden Baked Potato changed from Regeneration I for 5–10 seconds to **Regeneration II for 8 seconds**.
 - **Golden Apple Trees:** old possible 10–25% sapling/return and random exhaustion discussions were superseded by **final-harvest 5/10/15/20% sapling chances** and **guaranteed exhaustion after second harvest**.
 - **Golden Melon:** normal melon blocks do not drop ordinary seeds. Only **vanilla melon blocks** get the additional rare golden-seed roll. Golden melon blocks drop slices or Silk Touch block only.
-- **Golden Beetroot:** intended 0.60%/0.70% mid-Fortune rates are approximated by 1/167 and 1/143, not identical.
+- **Golden Beetroot:** Fortune rare-discovery denominators are now **200 / 175 / 150 / 125**; prior 1/167 and 1/143 approximations were superseded. Mature golden crop seed ranges are now **2–4 / 3–6 / 4–8 / 5–9** on a successful 80% seed roll.
 - **Golden Carrot:** vanilla already has a Golden Carrot food; do not accidentally overwrite vanilla food properties without a conscious design decision.
 - **Golden Mushroom:** “only mature vanilla crops” cannot literally apply to mushrooms; **breaking a vanilla red or brown mushroom** is the recovered discovery trigger. Huge-mushroom blocks remain unapproved.
 - **Golden Mushroom Stew:** 10 hunger was explicitly recovered later, superseding the earlier inferred 9; Saturation effect 0.35 seconds follows *Suspicious Stew*, not vanilla ordinary Mushroom Stew.
@@ -401,4 +403,6 @@ Golden Bread recipe already existed and was tested. Recipes for unregistered ite
 - After changes on GitHub, **pull before editing/pushing local files** to avoid conflicts.
 - On PC, update this document alongside implementation and use descriptive commits.
 - Avoid rewriting published commit history just to rename an old commit.
-- This document is a snapshot of decisions through 2026-10-22; update it when new decisions are made.
+- This document is maintained as the current specification and release checklist; [CHAT_HISTORY.md](CHAT_HISTORY.md) records the chronological context and texture-editing workflow.
+- **2026-10-24 Creative inventory:** `ModItemGroups.java` uses Fabric 26.2 `CreativeModeTabEvents.modifyOutputEvent`; all six existing items were verified visible in Minecraft. Item ordering uses `insertAfter` where appropriate; Golden Crop seeds belong in Natural Blocks. The creator adjusted final placement locally; exact final source has not been reviewed.
+- **2026-10-24 Fresh Food resource pack:** plan a separate optional compatibility pack, not built-in 3D models. The texture creator responded positively and invited reuse of existing gold palette; verify redistribution/attribution scope for other contributors' models/animations. Golden Bread has one regular, one plated, five eating-animation textures. Recolor manually one texture at a time via PaletteReader and Paint.NET. See [CHAT_HISTORY.md](CHAT_HISTORY.md) for exact palettes, source HEX list, and color-mapping workflow. **No AI-generated images unless the creator explicitly requests them.**
