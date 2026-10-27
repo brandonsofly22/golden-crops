@@ -2,5 +2,10 @@
 {
   "item.golden-crops.golden_wheat": "Golden Wheat",
   "item.golden-crops.golden_wheat_seeds": "Golden Wheat Seeds",
-  "item.golden-crops.golden_bread": "Golden Bread"
+  "item.golden-crops.golden_bread": "Golden Bread",
+  "item.golden-crops.golden_beetroot": "Golden Beetroot",
+  "item.golden-crops.golden_beetroot_seeds": "Golden Beetroot Seeds",
+  "item.golden-crops.golden_beetroot_soup": "Golden Beetroot Soup",
+  "item.golden-crops.golden_potato": "Golden Potato",
+  "item.golden-crops.golden_baked_potato": "Golden Baked Potato"
 }

@@ -4,6 +4,7 @@ package com.brandon.goldencrops;
 import com.brandon.goldencrops.loot.ModLootTables;
 import com.brandon.goldencrops.item.ModItems;
 import com.brandon.goldencrops.block.ModBlocks;
+import com.brandon.goldencrops.item.ModItemGroups;
 import net.fabricmc.api.ModInitializer;
 import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
@@ -20,6 +21,7 @@ public class GoldenCrops implements ModInitializer {
 		LOGGER.info("Initializing Golden Crops!");
 		ModBlocks.registerModBlocks();
 		ModItems.registerModItems();
+		ModItemGroups.registerModItemGroups();
 		ModLootTables.registerModLootTables();
 	}
 

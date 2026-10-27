@@ -2,6 +2,8 @@
 package com.brandon.goldencrops.block;
 
 import com.brandon.goldencrops.GoldenCrops;
+import com.brandon.goldencrops.block.custom.GoldenBeetrootCropBlock;
+import com.brandon.goldencrops.block.custom.GoldenPotatoCropBlock;
 import com.brandon.goldencrops.block.custom.GoldenWheatCropBlock;
 
 import net.minecraft.core.Registry;
@@ -38,9 +40,36 @@ public class ModBlocks {
         );
     }
 
+    // Golden Wheat
     public static final Block GOLDEN_WHEAT_CROP = registerBlock(
             "golden_wheat_crop",
             GoldenWheatCropBlock::new,
+            BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_YELLOW)
+                    .noCollision()
+                    .randomTicks()
+                    .instabreak()
+                    .sound(SoundType.CROP)
+                    .pushReaction(PushReaction.DESTROY)
+    );
+
+    // Golden Beetroot
+    public static final Block GOLDEN_BEETROOT_CROP = registerBlock(
+            "golden_beetroot_crop",
+            GoldenBeetrootCropBlock::new,
+            BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_YELLOW)
+                    .noCollision()
+                    .randomTicks()
+                    .instabreak()
+                    .sound(SoundType.CROP)
+                    .pushReaction(PushReaction.DESTROY)
+    );
+
+    // Golden Potato
+    public static final Block GOLDEN_POTATO_CROP = registerBlock(
+            "golden_potato_crop",
+            GoldenPotatoCropBlock::new,
             BlockBehaviour.Properties.of()
                     .mapColor(MapColor.COLOR_YELLOW)
                     .noCollision()
